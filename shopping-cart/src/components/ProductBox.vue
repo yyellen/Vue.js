@@ -1,12 +1,13 @@
 <template>
     <div class="product-box">
-                <div class="image-box">
-                    <img :src="parseImgPath(img_path)">
-                </div>
-                <h4>{{ brand }} <small>{{ category }}</small></h4>
-                <h3>{{ name }}</h3>
-                <p>售價: NT${{ price }}</p>
-            </div>
+        <div class="image-box" @click="redirectProduct(id)">
+            <img :src="parseImgPath(img_path)">
+        </div>
+        <h4>{{ brand }} <small>{{ category }}</small></h4>
+        <h3>{{ name }}</h3>
+        <p>售價: NT${{ price }}</p>
+        <slot></slot>
+    </div>
 </template>
 
 <script>
@@ -17,6 +18,7 @@ export default{
         }
     },
     props:{
+        'id': Number,
         'img_path': String,
         'brand': String,
         'category': String,
@@ -26,6 +28,9 @@ export default{
     methods:{
         parseImgPath: function(path){
             return this.severPath + path;
+        },
+        redirectProduct: function(id){
+            this.$router.push(`/products/${id}`)
         }
     }
 }
